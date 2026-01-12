@@ -28,8 +28,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/catalog" className="text-background/70 hover:text-background transition-colors">
-                  Catalog
+                <Link href="/in-home-trial" className="text-background/70 hover:text-background transition-colors">
+                  In-Home Trial
                 </Link>
               </li>
               <li>

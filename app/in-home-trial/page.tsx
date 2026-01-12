@@ -71,14 +71,8 @@ export default function InHomeTrialPage() {
 
       <main className="w-full">
         {/* Hero Section */}
-        <section className="relative w-full h-[500px] md:h-screen overflow-hidden bg-muted">
-          <video
-            autoPlay
-            muted
-            loop
-            className="absolute inset-0 w-full h-full object-cover"
-            src="https://placeholder.co/1920x1080/3a2418/f6efe7?text=Luxury+Rug+Home"
-          />
+        <section className="relative w-full h-[500px] md:h-[500px] overflow-hidden bg-muted">
+         <img src="/inhometrial.jpg" alt="About ARYA RUGS" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-foreground/60"></div>
 
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">

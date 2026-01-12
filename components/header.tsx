@@ -13,16 +13,16 @@ export default function Header() {
 
         <nav className="hidden md:flex items-center gap-8">
           <Link
-            href="/catalog"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Catalog
-          </Link>
-          <Link
             href="/collections"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             Collections
+          </Link>
+          <Link
+            href="/in-home-trial"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            In-Home Trial
           </Link>
           <Link
             href="/about"
