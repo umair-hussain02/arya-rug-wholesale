@@ -28,7 +28,7 @@ export const collectionsData: Collection[] = [
     description: "Bold geometric patterns and warm earthy tones inspired by North African weaving traditions.",
     story:
       "Our Moroccan collection draws inspiration from the vibrant souks and desert landscapes of Morocco. Each piece features authentic geometric patterns and rich earth tones that bring warmth and cultural heritage to any space. Hand-woven using traditional techniques passed down through generations, these rugs tell stories of Moroccan craftsmanship.",
-    heroImage: "/moroccan-navy-rug.jpg",
+    heroImage: "/persian-rug.jpg",
     galleryImages: [
       { src: "/moroccan-navy-rug.jpg", alt: "Marrakech Midnight - Navy Moroccan rug", caption: "Marrakech Midnight" },
       { src: "/moroccan-rug-detail.jpg", alt: "Detail view of Moroccan pattern" },
@@ -57,7 +57,7 @@ export const collectionsData: Collection[] = [
     description: "Exquisite hand-knotted carpets featuring intricate floral motifs and jewel-toned palettes.",
     story:
       "Celebrating centuries of Persian weaving excellence, our Heritage collection features traditional patterns and techniques that have been refined over generations. Each carpet is a masterpiece of artistry, combining silk accents with premium wool to create timeless pieces that command attention and respect.",
-    heroImage: "/persian-garden-rug.jpg",
+    heroImage: "/modern-rug.jpg",
     galleryImages: [
       { src: "/persian-garden-rug.jpg", alt: "Persian Garden - traditional design", caption: "Persian Garden" },
       { src: "/persian-floral.jpg", alt: "Detailed floral Persian pattern" },
@@ -86,7 +86,7 @@ export const collectionsData: Collection[] = [
     description: "Contemporary designs with clean lines and neutral colors perfect for today's interiors.",
     story:
       "Designed for the modern aesthetic, our Minimalist collection strips away excess to reveal pure form and function. These flatweave rugs feature subtle geometric elements and sophisticated neutral palettes that anchor contemporary spaces without competing for attention.",
-    heroImage: "/modern-charcoal-rug.jpg",
+    heroImage: "/kilim-rug.jpg",
     galleryImages: [
       { src: "/modern-charcoal-rug.jpg", alt: "Minimalist Canvas - charcoal flatweave", caption: "Minimalist Canvas" },
       { src: "/modern-neutral-rug-interior-design.jpg", alt: "Modern neutral rug in contemporary space" },
@@ -115,7 +115,7 @@ export const collectionsData: Collection[] = [
     description: "Eclectic bohemian styles blending natural textures with artistic flair.",
     story:
       "Embrace free-spirited design with our Boho Fusion collection. Combining natural fibers—jute, wool, and cotton—with vibrant patterns and warm earth tones, these rugs celebrate individuality and artistic expression. Perfect for those seeking authenticity and worldly charm.",
-    heroImage: "/boho-multicolor-rug.jpg",
+    heroImage: "/shag-rug.jpg",
     galleryImages: [
       { src: "/boho-multicolor-rug.jpg", alt: "Boho Wanderlust - multicolor fusion", caption: "Boho Wanderlust" },
       { src: "/boho-terracotta-rug.jpg", alt: "Earthy Harmony - terracotta blend" },
