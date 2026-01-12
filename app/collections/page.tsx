@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { motion } from "framer-motion"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import { collectionsData } from "@/lib/collections-data"
+import Link from "next/link";
+import { motion } from "framer-motion";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import { collectionsData } from "@/lib/collections-data";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -15,7 +15,7 @@ const containerVariants = {
       delayChildren: 0.2,
     },
   },
-}
+};
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -27,7 +27,7 @@ const cardVariants = {
       ease: "easeOut",
     },
   },
-}
+};
 
 export default function CollectionsPage() {
   return (
@@ -36,7 +36,7 @@ export default function CollectionsPage() {
 
       <main className="w-full">
         {/* Page Hero */}
-        <section className="relative w-full py-20 md:py-32 bg-gradient-to-b from-muted/50 to-background overflow-hidden">
+        <section className="relative w-full py-20 md:py-20 bg-gradient-to-b from-muted/50 to-background overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 right-10 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 left-20 w-80 h-80 bg-primary/20 rounded-full blur-3xl"></div>
@@ -56,8 +56,9 @@ export default function CollectionsPage() {
                 Explore by Collection
               </h1>
               <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-                Discover our curated collections, from traditional Persian heritage to contemporary minimalism. Each
-                collection tells a story of authentic craftsmanship and design excellence.
+                Discover our curated collections, from traditional Persian
+                heritage to contemporary minimalism. Each collection tells a
+                story of authentic craftsmanship and design excellence.
               </p>
             </motion.div>
           </div>
@@ -71,11 +72,18 @@ export default function CollectionsPage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16"
+              className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16"
             >
               {collectionsData.map((collection) => (
-                <motion.div key={collection.slug} variants={cardVariants} asChild>
-                  <Link href={`/collections/${collection.slug}`} className="group cursor-pointer">
+                <motion.div
+                  key={collection.slug}
+                  variants={cardVariants}
+                  asChild
+                >
+                  <Link
+                    href={`/collections/${collection.slug}`}
+                    className="group cursor-pointer"
+                  >
                     <div className="space-y-8">
                       {/* Image Container */}
                       <div className="relative aspect-[3/4] overflow-hidden bg-muted rounded-sm">
@@ -106,7 +114,7 @@ export default function CollectionsPage() {
                           className="h-px bg-primary"
                         ></motion.div>
                         <div>
-                          <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 leading-tight">
+                          <h2 className="font-serif text-4xl md:text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 leading-tight">
                             {collection.title}
                           </h2>
                         </div>
@@ -118,13 +126,17 @@ export default function CollectionsPage() {
                             <p className="text-foreground font-sans text-sm font-semibold">
                               {collection.galleryImages.length} Designs
                             </p>
-                            <p className="text-muted-foreground font-sans text-xs">Available in collection</p>
+                            <p className="text-muted-foreground font-sans text-xs">
+                              Available in collection
+                            </p>
                           </div>
                           <div className="space-y-1">
                             <p className="text-foreground font-sans text-sm font-semibold">
                               {collection.availableSizes.length} Sizes
                             </p>
-                            <p className="text-muted-foreground font-sans text-xs">Standard options</p>
+                            <p className="text-muted-foreground font-sans text-xs">
+                              Standard options
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -146,10 +158,10 @@ export default function CollectionsPage() {
               className="space-y-4"
             >
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-background">
-                Can't Find What You're Looking For?
+                Not Sure Which Rug Is Right?
               </h2>
               <p className="text-background/80 text-lg">
-                We offer fully customizable rugs tailored to your specific needs and preferences.
+                Enjoy personalized guidance to find the ideal rug for your space
               </p>
             </motion.div>
             <motion.div
@@ -159,10 +171,10 @@ export default function CollectionsPage() {
               className="flex gap-4 justify-center flex-wrap"
             >
               <Link
-                href="/custom-rugs"
+                href="/in-home-trial"
                 className="px-8 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-colors duration-300"
               >
-                Explore Custom Rugs
+                Try At Place
               </Link>
               <Link
                 href="/contact"
@@ -177,5 +189,5 @@ export default function CollectionsPage() {
 
       <Footer />
     </div>
-  )
+  );
 }

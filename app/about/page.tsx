@@ -334,13 +334,13 @@ export default function AboutPage() {
               </motion.div>
 
               <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                <Link href="/catalog">
+                <Link href="/collections">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-colors"
                   >
-                    Browse Catalog
+                    Browse Collections
                   </motion.button>
                 </Link>
                 <a href="https://wa.me/12314634971?text=I%20am%20interested%20in%20your%20rugs">

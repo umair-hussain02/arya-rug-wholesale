@@ -1,50 +1,61 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import { collectionsData } from "@/lib/collections-data"
-import { MapPin, CheckCircle2, Home, Calendar, Sparkles } from "lucide-react"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import { collectionsData } from "@/lib/collections-data";
+import {
+  MapPin,
+  CheckCircle2,
+  Home,
+  Calendar,
+  Sparkles,
+  Search,
+  Palette,
+  Truck,
+  Smile,
+} from "lucide-react";
 
 export default function InHomeTrialPage() {
-  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const steps = [
+  const timelineSteps = [
     {
-      number: 1,
-      title: "Select Designs",
-      description: "Browse our collections and choose 2-3 rugs you'd like to experience at home.",
+      number: "1",
+      title: "Browse & Select",
+      description: "Explore our collections and choose your favorite designs",
       icon: Sparkles,
     },
     {
-      number: 2,
-      title: "Schedule Trial",
-      description: "Pick a convenient date and time for delivery to your space.",
+      number: "2",
+      title: "Schedule Delivery",
+      description: "Pick a date convenient for you within your area",
       icon: Calendar,
     },
     {
-      number: 3,
-      title: "In-Home Placement",
-      description: "Our team carefully places and styles each rug in your chosen area.",
+      number: "3",
+      title: "Expert Placement",
+      description: "Our team delivers and professionally styles each rug",
       icon: Home,
     },
     {
-      number: 4,
-      title: "Final Selection",
-      description: "Live with the rugs, see how they feel, and decide with confidence.",
+      number: "4",
+      title: "Decide With Confidence",
+      description: "Live with your selections and make your final choice",
       icon: CheckCircle2,
     },
-  ]
-
+  ];
   const benefits = [
     {
       title: "See True Colors",
-      description: "Experience the exact colors under your lighting conditions.",
+      description:
+        "Experience the exact colors under your lighting conditions.",
     },
     {
       title: "Feel the Texture",
-      description: "Walk on the rug and feel the quality and comfort firsthand.",
+      description:
+        "Walk on the rug and feel the quality and comfort firsthand.",
     },
     {
       title: "Match Your Space",
@@ -54,7 +65,7 @@ export default function InHomeTrialPage() {
       title: "No Guesswork",
       description: "Make informed decisions with confidence before purchasing.",
     },
-  ]
+  ];
 
   const serviceAreas = [
     { city: "Los Angeles", trialduration: "7 days" },
@@ -63,7 +74,7 @@ export default function InHomeTrialPage() {
     { city: "Miami", trialduration: "5 days" },
     { city: "Chicago", trialduration: "5 days" },
     { city: "Seattle", trialduration: "5 days" },
-  ]
+  ];
 
   return (
     <div className="w-full">
@@ -72,8 +83,17 @@ export default function InHomeTrialPage() {
       <main className="w-full">
         {/* Hero Section */}
         <section className="relative w-full h-[500px] md:h-[500px] overflow-hidden bg-muted">
-         <img src="/inhometrial.jpg" alt="About ARYA RUGS" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-foreground/60"></div>
+          <img
+            src="/inhometrial.jpg"
+            alt="About ARYA RUGS"
+            className="w-full h-full object-cover"
+          />
+
+          {/* Dark brown bottom overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#2a1a0f]/90 via-[#2a1a0f]/50 to-transparent" />
+
+          {/* Existing soft overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-foreground/40" />
 
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <motion.div
@@ -93,52 +113,116 @@ export default function InHomeTrialPage() {
         </section>
 
         {/* How It Works */}
-        <section className="w-full py-20 md:py-32 bg-background">
+        <section className="w-full py-20 md:py-20 bg-background">
           <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center mb-16"
+              className="text-center mb-20"
             >
-              <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">How It Works</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                A seamless process designed for your convenience and peace of mind.
+              <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
+                How It Works
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                A simple, seamless process designed entirely around your comfort
+                and confidence.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {steps.map((step, idx) => {
-                const Icon = step.icon
+            {/* Desktop Timeline */}
+            <div className="hidden md:block">
+              <div className="relative">
+                {/* Progress Line */}
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1.2, ease: "easeOut" }}
+                  viewport={{ once: true }}
+                  className="absolute top-6 left-0 right-0 h-1 bg-gradient-to-r from-primary/30 via-primary to-primary/30 origin-left"
+                />
+
+                <div className="grid grid-cols-4 gap-8">
+                  {timelineSteps.map((step, idx) => {
+                    const Icon = step.icon;
+                    return (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: idx * 0.1 }}
+                        viewport={{ once: true }}
+                        className="relative"
+                      >
+                        {/* Icon Circle */}
+                        <div className="relative z-10 mb-8">
+                          <div className="w-16 h-16 bg-background border-4 border-primary rounded-full flex items-center justify-center mx-auto shadow-lg">
+                            <Icon className="w-7 h-7 text-primary" />
+                          </div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="space-y-4 text-center">
+                          <div className="font-serif text-5xl font-bold text-primary/50">
+                            {step.number}
+                          </div>
+                          <h3 className="font-serif text-2xl font-bold text-foreground">
+                            {step.title}
+                          </h3>
+                          <p className="text-muted-foreground leading-relaxed">
+                            {step.description}
+                          </p>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile Timeline */}
+            <div className="md:hidden space-y-8">
+              {timelineSteps.map((step, idx) => {
+                const Icon = step.icon;
                 return (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6, delay: idx * 0.1 }}
                     viewport={{ once: true }}
-                    className="space-y-4"
+                    className="flex gap-6"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+                    <div className="flex flex-col items-center">
+                      <div className="w-14 h-14 bg-background border-4 border-primary rounded-full flex items-center justify-center">
                         <Icon className="w-6 h-6 text-primary" />
                       </div>
-                      <span className="font-serif text-3xl font-bold text-primary">{step.number}</span>
+                      {idx < timelineSteps.length - 1 && (
+                        <div className="w-1 h-16 bg-primary/20 mt-4" />
+                      )}
                     </div>
-                    <div>
-                      <h3 className="font-serif text-2xl font-bold text-foreground mb-2">{step.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+
+                    <div className="pt-2 space-y-2">
+                      <p className="font-serif text-3xl font-bold text-primary/30">
+                        {step.number}
+                      </p>
+                      <h3 className="font-serif text-xl font-bold text-foreground">
+                        {step.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {step.description}
+                      </p>
                     </div>
                   </motion.div>
-                )
+                );
               })}
             </div>
           </div>
         </section>
 
         {/* Why In-Home Trial */}
-        <section className="w-full py-20 md:py-32 bg-muted/30">
+        <section className="w-full py-20 md:py-20 bg-muted/30">
           <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0 }}
@@ -147,7 +231,9 @@ export default function InHomeTrialPage() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">Why In-Home Trial</h2>
+              <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
+                Why In-Home Trial
+              </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
                 Rugs are investments. Live with yours before you commit.
               </p>
@@ -169,8 +255,12 @@ export default function InHomeTrialPage() {
                     </div>
                   </div>
                   <div>
-                    <h3 className="font-serif text-xl font-bold text-foreground mb-2">{benefit.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{benefit.description}</p>
+                    <h3 className="font-serif text-xl font-bold text-foreground mb-2">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {benefit.description}
+                    </p>
                   </div>
                 </motion.div>
               ))}
@@ -188,19 +278,26 @@ export default function InHomeTrialPage() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">Who Is It For</h2>
+              <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
+                Who Is It For
+              </h2>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { title: "Homeowners", description: "Make the perfect choice for your living space." },
+                {
+                  title: "Homeowners",
+                  description: "Make the perfect choice for your living space.",
+                },
                 {
                   title: "Interior Designers",
-                  description: "Present curated options to your clients with confidence.",
+                  description:
+                    "Present curated options to your clients with confidence.",
                 },
                 {
                   title: "High-Value Projects",
-                  description: "Ensure selections work perfectly in luxury installations.",
+                  description:
+                    "Ensure selections work perfectly in luxury installations.",
                 },
               ].map((item, idx) => (
                 <motion.div
@@ -211,8 +308,12 @@ export default function InHomeTrialPage() {
                   viewport={{ once: true }}
                   className="p-8 border border-border bg-muted/50 hover:border-primary transition-colors duration-300 space-y-4"
                 >
-                  <h3 className="font-serif text-2xl font-bold text-foreground">{item.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                  <h3 className="font-serif text-2xl font-bold text-foreground">
+                    {item.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {item.description}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -229,9 +330,12 @@ export default function InHomeTrialPage() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">Service Areas</h2>
+              <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
+                Service Areas
+              </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                Currently available in major metropolitan areas. Contact us for availability in your region.
+                Currently available in major metropolitan areas. Contact us for
+                availability in your region.
               </p>
             </motion.div>
 
@@ -248,7 +352,9 @@ export default function InHomeTrialPage() {
                   <MapPin className="w-6 h-6 text-primary flex-shrink-0" />
                   <div>
                     <p className="font-semibold text-foreground">{area.city}</p>
-                    <p className="text-sm text-muted-foreground">{area.trialduration} trial</p>
+                    <p className="text-sm text-muted-foreground">
+                      {area.trialduration} trial
+                    </p>
                   </div>
                 </motion.div>
               ))}
@@ -261,8 +367,13 @@ export default function InHomeTrialPage() {
               viewport={{ once: true }}
               className="text-center mt-12"
             >
-              <p className="text-muted-foreground mb-4">Not in a service area?</p>
-              <a href="/contact" className="text-primary hover:text-primary/80 font-semibold">
+              <p className="text-muted-foreground mb-4">
+                Not in a service area?
+              </p>
+              <a
+                href="/contact"
+                className="text-primary hover:text-primary/80 font-semibold"
+              >
                 Contact us for custom arrangements
               </a>
             </motion.div>
@@ -270,7 +381,7 @@ export default function InHomeTrialPage() {
         </section>
 
         {/* Booking Form Section */}
-        <section className="w-full py-20 md:py-32 bg-foreground text-background">
+        <section className="w-full py-20 md:py-20 bg-foreground text-background">
           <div className="max-w-2xl mx-auto px-4 md:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -282,22 +393,27 @@ export default function InHomeTrialPage() {
               {!formSubmitted ? (
                 <>
                   <div className="text-center space-y-4">
-                    <h2 className="font-serif text-4xl md:text-5xl font-bold">Schedule Your Trial</h2>
+                    <h2 className="font-serif text-4xl md:text-5xl font-bold">
+                      Schedule Your Trial
+                    </h2>
                     <p className="text-background/80 text-lg">
-                      Fill out the form below and we'll get in touch to confirm your trial date.
+                      Fill out the form below and we'll get in touch to confirm
+                      your trial date.
                     </p>
                   </div>
 
                   <form
                     onSubmit={(e) => {
-                      e.preventDefault()
-                      setFormSubmitted(true)
+                      e.preventDefault();
+                      setFormSubmitted(true);
                     }}
                     className="space-y-6"
                   >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-semibold mb-2">Name</label>
+                        <label className="block text-sm font-semibold mb-2">
+                          Name
+                        </label>
                         <input
                           type="text"
                           required
@@ -306,7 +422,9 @@ export default function InHomeTrialPage() {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold mb-2">Phone</label>
+                        <label className="block text-sm font-semibold mb-2">
+                          Phone
+                        </label>
                         <input
                           type="tel"
                           required
@@ -318,7 +436,9 @@ export default function InHomeTrialPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-semibold mb-2">Email</label>
+                        <label className="block text-sm font-semibold mb-2">
+                          Email
+                        </label>
                         <input
                           type="email"
                           required
@@ -327,7 +447,9 @@ export default function InHomeTrialPage() {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold mb-2">City</label>
+                        <label className="block text-sm font-semibold mb-2">
+                          City
+                        </label>
                         <input
                           type="text"
                           required
@@ -338,7 +460,9 @@ export default function InHomeTrialPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold mb-2">Preferred Trial Date</label>
+                      <label className="block text-sm font-semibold mb-2">
+                        Preferred Trial Date
+                      </label>
                       <input
                         type="date"
                         required
@@ -347,22 +471,32 @@ export default function InHomeTrialPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold mb-2">Collections of Interest</label>
+                      <label className="block text-sm font-semibold mb-2">
+                        Collections of Interest
+                      </label>
                       <select
                         multiple
                         className="w-full px-4 py-3 bg-background/10 border border-background/30 text-background focus:outline-none focus:border-primary"
                       >
                         {collectionsData.map((collection) => (
-                          <option key={collection.id} value={collection.id} className="text-foreground">
+                          <option
+                            key={collection.id}
+                            value={collection.id}
+                            className="text-background"
+                          >
                             {collection.title}
                           </option>
                         ))}
                       </select>
-                      <p className="text-xs text-background/70 mt-2">Hold Ctrl/Cmd to select multiple</p>
+                      <p className="text-xs text-background/70 mt-2">
+                        Hold Ctrl/Cmd to select multiple
+                      </p>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold mb-2">Additional Notes</label>
+                      <label className="block text-sm font-semibold mb-2">
+                        Additional Notes
+                      </label>
                       <textarea
                         className="w-full px-4 py-3 bg-background/10 border border-background/30 text-background placeholder-background/60 focus:outline-none focus:border-primary h-24 resize-none"
                         placeholder="Tell us about your space, style preferences, or any questions..."
@@ -386,10 +520,13 @@ export default function InHomeTrialPage() {
                   <div className="w-20 h-20 bg-primary/30 rounded-full flex items-center justify-center mx-auto">
                     <CheckCircle2 className="w-10 h-10 text-primary" />
                   </div>
-                  <h3 className="font-serif text-3xl font-bold">Trial Request Received</h3>
+                  <h3 className="font-serif text-3xl font-bold">
+                    Trial Request Received
+                  </h3>
                   <p className="text-background/80 text-lg leading-relaxed">
-                    Thank you for your interest in our in-home trial service. Our team will contact you within 24 hours
-                    to confirm your trial date and discuss your collection preferences.
+                    Thank you for your interest in our in-home trial service.
+                    Our team will contact you within 24 hours to confirm your
+                    trial date and discuss your collection preferences.
                   </p>
                   <button
                     onClick={() => setFormSubmitted(false)}
@@ -406,5 +543,5 @@ export default function InHomeTrialPage() {
 
       <Footer />
     </div>
-  )
+  );
 }

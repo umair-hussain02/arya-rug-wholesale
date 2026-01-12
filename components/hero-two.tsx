@@ -65,7 +65,7 @@ export function HeroSection2() {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-          <Link href="/catalog">
+          <Link href="/collections">
             <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-6 text-lg transition-all duration-300 hover:shadow-lg"
@@ -74,7 +74,7 @@ export function HeroSection2() {
             </Button>
           </Link>
 
-          <a href="https://wa.me/1234567890?text=I%20am%20interested%20in%20your%20rugs">
+          <a href="https://wa.me/12314634971?text=I%20am%20interested%20in%20your%20rugs">
             <Button
               size="lg"
               variant="outline"
