@@ -21,10 +21,10 @@ export function CTAStrip() {
             Message on WhatsApp
           </a>
           <a
-            href="mailto:contact@aryarugs.com"
+            href="mailto:aryarug1@gmail.com"
             className="inline-flex items-center justify-center px-8 py-4 border-2 border-background text-background hover:bg-background/10 font-sans font-semibold transition-colors duration-300"
           >
-            Email: contact@aryarugs.com
+            Email: contact@aryarug.com
           </a>
         </div>
       </div>

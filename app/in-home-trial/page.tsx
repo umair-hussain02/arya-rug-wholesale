@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { Globe, Clock, PackageCheck } from "lucide-react";
 import { collectionsData } from "@/lib/collections-data";
 import {
   MapPin,
@@ -23,8 +24,8 @@ export default function InHomeTrialPage() {
   const timelineSteps = [
     {
       number: "1",
-      title: "Browse & Select",
-      description: "Explore our collections and choose your favorite designs",
+      title: "Share Your Preferences",
+      description: "Tell us your style, size, and space requirements",
       icon: Sparkles,
     },
     {
@@ -46,6 +47,7 @@ export default function InHomeTrialPage() {
       icon: CheckCircle2,
     },
   ];
+
   const benefits = [
     {
       title: "See True Colors",
@@ -68,12 +70,24 @@ export default function InHomeTrialPage() {
   ];
 
   const serviceAreas = [
-    { city: "Los Angeles", trialduration: "7 days" },
-    { city: "New York", trialduration: "7 days" },
-    { city: "San Francisco", trialduration: "7 days" },
-    { city: "Miami", trialduration: "5 days" },
-    { city: "Chicago", trialduration: "5 days" },
-    { city: "Seattle", trialduration: "5 days" },
+    {
+      title: "Coast to Coast",
+      description:
+        "From major cities to private residences, we serve clients nationwide.",
+      icon: Globe,
+    },
+    {
+      title: "Flexible Trial Period",
+      description:
+        "Enjoy a 5–7 day in-home trial depending on delivery location.",
+      icon: Clock,
+    },
+    {
+      title: "White-Glove Delivery",
+      description:
+        "Professional delivery, placement, and styling—always included.",
+      icon: PackageCheck,
+    },
   ];
 
   return (
@@ -331,33 +345,39 @@ export default function InHomeTrialPage() {
               className="text-center mb-16"
             >
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
-                Service Areas
+                Nationwide Service
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                Currently available in major metropolitan areas. Contact us for
-                availability in your region.
+                Our in-home rug trial experience is available across the United
+                States, thoughtfully delivered wherever your space may be.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {serviceAreas.map((area, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: idx * 0.05 }}
-                  viewport={{ once: true }}
-                  className="flex items-center gap-4 p-6 bg-background border border-border rounded-sm"
-                >
-                  <MapPin className="w-6 h-6 text-primary flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold text-foreground">{area.city}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {area.trialduration} trial
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {serviceAreas.map((item, idx) => {
+                const Icon = item.icon;
+
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: idx * 0.08 }}
+                    viewport={{ once: true }}
+                    className="p-8 bg-background border border-border rounded-sm text-center"
+                  >
+                    <Icon className="w-6 h-6 text-primary mx-auto mb-4" />
+
+                    <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-muted-foreground text-sm">
+                      {item.description}
                     </p>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
 
             <motion.div
@@ -365,16 +385,16 @@ export default function InHomeTrialPage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
-              className="text-center mt-12"
+              className="text-center mt-16"
             >
               <p className="text-muted-foreground mb-4">
-                Not in a service area?
+                Have a unique location or special request?
               </p>
               <a
                 href="/contact"
-                className="text-primary hover:text-primary/80 font-semibold"
+                className="inline-block font-semibold text-primary hover:text-primary/80 transition-colors"
               >
-                Contact us for custom arrangements
+                Speak with our team →
               </a>
             </motion.div>
           </div>
@@ -470,28 +490,6 @@ export default function InHomeTrialPage() {
                       />
                     </div>
 
-                    <div>
-                      <label className="block text-sm font-semibold mb-2">
-                        Collections of Interest
-                      </label>
-                      <select
-                        multiple
-                        className="w-full px-4 py-3 bg-background/10 border border-background/30 text-background focus:outline-none focus:border-primary"
-                      >
-                        {collectionsData.map((collection) => (
-                          <option
-                            key={collection.id}
-                            value={collection.id}
-                            className="text-background"
-                          >
-                            {collection.title}
-                          </option>
-                        ))}
-                      </select>
-                      <p className="text-xs text-background/70 mt-2">
-                        Hold Ctrl/Cmd to select multiple
-                      </p>
-                    </div>
 
                     <div>
                       <label className="block text-sm font-semibold mb-2">

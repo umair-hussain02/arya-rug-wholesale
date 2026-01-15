@@ -134,11 +134,11 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="font-serif text-6xl md:text-7xl lg:text-7xl text-background font-bold tracking-tight leading-tight">
-              Crafting Rugs for Global Spaces
-            </h1>
+            {/* <h1 className="font-serif text-6xl md:text-7xl lg:text-7xl text-background font-bold tracking-tight leading-tight">
+             A Heritage of Craft. A Network of Trust
+            </h1> */}
             <p className="text-xl md:text-2xl text-background/70 max-w-2xl mx-auto leading-relaxed font-light">
-              Over a decade of excellence in handcrafted rug design and production
+             A Heritage of Craft. A Network of Trust
             </p>
           </motion.div>
         </section>

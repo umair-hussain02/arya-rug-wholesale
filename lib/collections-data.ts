@@ -144,7 +144,7 @@ export const collectionsData: Collection[] = [
     description: "Timeless pieces with aged patina that add character and sophistication.",
     story:
       "Our Vintage Elegance collection brings the charm of time-worn beauty to contemporary spaces. Featuring classic designs with subtle aging effects, these hand-knotted pieces bridge traditional craftsmanship with modern sensibilities, offering both heritage and contemporary appeal.",
-    heroImage: "/placeholder.svg?height=600&width=400",
+    heroImage: "/1.webp",
     galleryImages: [
       {
         src: "/placeholder.svg?height=600&width=400",
@@ -177,7 +177,7 @@ export const collectionsData: Collection[] = [
     description: "Traditional flat-woven kilims with vibrant patterns and authentic cultural heritage.",
     story:
       "Rooted in centuries of Anatolian tradition, our Turkish Kilims collection showcases authentic flat-weave patterns and vibrant geometric designs. Each kilim is a testament to the weaving heritage of Turkey, offering bold visual impact with the durability and functionality of flatweave construction.",
-    heroImage: "/placeholder.svg?height=600&width=400",
+    heroImage: "/2.webp",
     galleryImages: [
       {
         src: "/placeholder.svg?height=600&width=400",

@@ -13,6 +13,12 @@ export default function Header() {
 
         <nav className="hidden md:flex items-center gap-8">
           <Link
+            href="/"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Home
+          </Link>
+          <Link
             href="/collections"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
@@ -30,12 +36,7 @@ export default function Header() {
           >
             About
           </Link>
-          <Link
-            href="/faq"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            FAQ
-          </Link>
+          
           <Link
             href="/contact"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
@@ -47,7 +48,7 @@ export default function Header() {
         <div className="flex items-center gap-4">
           <Link href="/contact" className="hidden md:block">
             <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              Get Quote
+              Inquire Now
             </Button>
           </Link>
           <MobileMenu />

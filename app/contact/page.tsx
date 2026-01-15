@@ -99,7 +99,7 @@ export default function ContactPage() {
                         <div>
                           <p className="font-medium text-foreground">Email</p>
                           <a
-                            href="mailto:info@rugcatalog.com"
+                            href="mailto:aryarugs1@gmail.com"
                             className="text-muted-foreground hover:text-primary transition-colors"
                           >
                             contact@aryarugs.com
@@ -277,7 +277,7 @@ export default function ContactPage() {
         </section>
 
         {/* FAQ Section */}
-        <section className="w-full py-16 md:py-24 bg-secondary border-t border-border">
+        {/* <section className="w-full py-16 md:py-24 bg-secondary border-t border-border">
           <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12">Frequently Asked Questions</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -306,7 +306,7 @@ export default function ContactPage() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
       </main>
 
       <Footer />

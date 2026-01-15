@@ -387,7 +387,7 @@ export default function ShippingPage() {
               </motion.a>
               <motion.a
                 variants={itemVariants}
-                href="https://wa.me/1234567890?text=I%20have%20a%20shipping%20question"
+                href="https://wa.me/12314634971?text=I%20have%20a%20shipping%20question"
                 className="px-8 py-4 border-2 border-foreground hover:bg-foreground/5 text-foreground font-semibold transition-colors rounded-sm"
               >
                 Chat with Us

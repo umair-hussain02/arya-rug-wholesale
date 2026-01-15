@@ -23,7 +23,7 @@ export default function PrivacyPolicyPage() {
                 <div>
                   <h2 className="font-serif text-2xl font-bold text-foreground mb-4">1. Introduction</h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    Wei Rugs ("Company," "we," "us," "our") respects the privacy of our customers and visitors ("you,"
+                    Arya Rug respects the privacy of our customers and visitors ("you,"
                     "your"). This Privacy Policy explains how we collect, use, protect, and share your personal
                     information when you visit our website and interact with our services.
                   </p>
@@ -103,7 +103,7 @@ export default function PrivacyPolicyPage() {
                     <li>The right to data portability</li>
                   </ul>
                   <p className="text-muted-foreground leading-relaxed mt-4">
-                    To exercise these rights, contact us at privacy@werugs.com.
+                    To exercise these rights, contact us at aryarugs1@gmail.com.
                   </p>
                 </div>
 
@@ -147,9 +147,9 @@ export default function PrivacyPolicyPage() {
                     For privacy inquiries, requests, or concerns, contact:
                   </p>
                   <div className="mt-4 p-4 bg-secondary rounded-sm">
-                    <p className="font-semibold text-foreground">Wei Rugs</p>
-                    <p className="text-muted-foreground">Email: privacy@werugs.com</p>
-                    <p className="text-muted-foreground">WhatsApp: Contact us via our website</p>
+                    <p className="font-semibold text-foreground">Arya Rug</p>
+                    <p className="text-muted-foreground">Email: aryarugs1@gmail.com</p>
+                    <p className="text-muted-foreground">Website: Contact us via our website</p>
                   </div>
                 </div>
               </div>
