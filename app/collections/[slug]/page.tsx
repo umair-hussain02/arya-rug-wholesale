@@ -52,7 +52,7 @@ export default function CollectionDetailPage() {
 
       <main className="w-full">
         {/* Hero Section */}
-        <section className="relative w-full h-96 md:h-screen overflow-hidden bg-muted">
+        <section className="relative w-full h-96 md:h-120 overflow-hidden bg-muted">
           <motion.img
             src={collection.heroImage}
             alt={collection.title}

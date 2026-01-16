@@ -121,7 +121,7 @@ export default function CollectionsPage() {
                         <p className="text-muted-foreground font-sans text-base leading-relaxed max-w-md">
                           {collection.description}
                         </p>
-                        <div className="flex items-center gap-8 pt-4">
+                        {/* <div className="flex items-center gap-8 pt-4">
                           <div className="space-y-1">
                             <p className="text-foreground font-sans text-sm font-semibold">
                               {collection.galleryImages.length} Designs
@@ -138,7 +138,7 @@ export default function CollectionsPage() {
                               Standard options
                             </p>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </Link>

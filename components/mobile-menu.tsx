@@ -62,10 +62,10 @@ export default function MobileMenu() {
   }
 
   const menuItems = [
+    { label: "Home", href: "/" },
     { label: "Collections", href: "/collections" },
     { label: "In-Home Trial", href: "/in-home-trial" },
     { label: "About", href: "/about" },
-    { label: "FAQ", href: "/faq" },
     { label: "Shipping Info", href: "/shipping" },
     { label: "Contact", href: "/contact" },
   ]
