@@ -51,7 +51,7 @@ function emailLayout(content: string) {
     <div style="max-width:620px;margin:auto;background:#ffffff;border-radius:10px;overflow:hidden">
       
       <div style="padding:24px;text-align:center;border-bottom:1px solid #eee">
-        <img src="cid:logo" alt="Brand Logo" style="max-width:160px;margin-bottom:10px" />
+        <img src="cid:logo" alt="ARYA RUGS" style="max-width:160px;margin-bottom:10px" />
       </div>
 
       <div style="padding:32px;color:#333;line-height:1.6">
@@ -151,7 +151,7 @@ export async function POST(request: Request) {
       attachments: [
         {
           filename: "logo.png",
-          path: "./public/logov4.png",
+          path: "https://www.aryarug.com/logov4.png",
           cid: "logo",
         },
       ],
@@ -165,7 +165,7 @@ export async function POST(request: Request) {
       attachments: [
         {
           filename: "logo.png",
-          path: "./public/logov4.png",
+          path: "https://www.aryarug.com/logov4.png",
           cid: "logo",
         },
       ],
