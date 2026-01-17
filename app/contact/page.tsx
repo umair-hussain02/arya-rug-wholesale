@@ -11,60 +11,38 @@ import { Textarea } from "@/components/ui/textarea"
 import { Mail, MapPin, Phone } from "lucide-react"
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    subject: "",
-    message: "",
-  })
+  
   const [loading, setLoading] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState("")
+  const [submitted, setFormSubmitted] = useState(false)
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setLoading(true)
-    setError("")
+    const formData = new FormData(e.currentTarget);
+
+    const payload = {
+      formType: "contact",
+      name: formData.get("name"),
+      phone: formData.get("phone"),
+      email: formData.get("email"),
+      company: formData.get("company"),
+      subject: formData.get("subject"),
+      message: formData.get("message"),
+    };
 
     try {
-      const response = await fetch("/api/contact", {
+      await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-      if (!response.ok) {
-        throw new Error("Failed to send message")
-      }
-
-      setSubmitted(true)
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        subject: "",
-        message: "",
-      })
-
-      // Reset success message after 5 seconds
-      setTimeout(() => setSubmitted(false), 5000)
+      setFormSubmitted(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred. Please try again.")
+      alert("Something went wrong. Please try again.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
@@ -152,12 +130,6 @@ export default function ContactPage() {
                       </div>
                     )}
 
-                    {error && (
-                      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                        <p className="text-red-800 font-medium">{error}</p>
-                      </div>
-                    )}
-
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <label htmlFor="name" className="text-sm font-medium text-foreground">
@@ -166,8 +138,6 @@ export default function ContactPage() {
                         <Input
                           id="name"
                           name="name"
-                          value={formData.name}
-                          onChange={handleChange}
                           placeholder="John Doe"
                           required
                           className="bg-background border-border"
@@ -181,8 +151,6 @@ export default function ContactPage() {
                           id="email"
                           name="email"
                           type="email"
-                          value={formData.email}
-                          onChange={handleChange}
                           placeholder="john@example.com"
                           required
                           className="bg-background border-border"
@@ -199,8 +167,6 @@ export default function ContactPage() {
                           id="phone"
                           name="phone"
                           type="tel"
-                          value={formData.phone}
-                          onChange={handleChange}
                           placeholder="+1 (234) 567-890"
                           className="bg-background border-border"
                         />
@@ -212,8 +178,6 @@ export default function ContactPage() {
                         <Input
                           id="company"
                           name="company"
-                          value={formData.company}
-                          onChange={handleChange}
                           placeholder="Your Company"
                           className="bg-background border-border"
                         />
@@ -227,8 +191,6 @@ export default function ContactPage() {
                       <select
                         id="subject"
                         name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
                         required
                         className="w-full px-3 py-2 bg-background border border-border rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                       >
@@ -248,8 +210,6 @@ export default function ContactPage() {
                       <Textarea
                         id="message"
                         name="message"
-                        value={formData.message}
-                        onChange={handleChange}
                         placeholder="Tell us about your requirements and we will get back to you with options..."
                         required
                         rows={6}

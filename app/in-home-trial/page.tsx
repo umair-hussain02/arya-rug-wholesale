@@ -5,21 +5,11 @@ import { motion } from "framer-motion";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Globe, Clock, PackageCheck } from "lucide-react";
-import { collectionsData } from "@/lib/collections-data";
-import {
-  MapPin,
-  CheckCircle2,
-  Home,
-  Calendar,
-  Sparkles,
-  Search,
-  Palette,
-  Truck,
-  Smile,
-} from "lucide-react";
+import { CheckCircle2, Home, Calendar, Sparkles } from "lucide-react";
 
 export default function InHomeTrialPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const timelineSteps = [
     {
@@ -89,6 +79,36 @@ export default function InHomeTrialPage() {
       icon: PackageCheck,
     },
   ];
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget);
+
+    const payload = {
+      formType: "trial",
+      name: formData.get("name"),
+      phone: formData.get("phone"),
+      email: formData.get("email"),
+      city: formData.get("city"),
+      date: formData.get("date"),
+      notes: formData.get("notes"),
+    };
+
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      setFormSubmitted(true);
+    } catch (err) {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="w-full">
@@ -422,19 +442,14 @@ export default function InHomeTrialPage() {
                     </p>
                   </div>
 
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      setFormSubmitted(true);
-                    }}
-                    className="space-y-6"
-                  >
+                  <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-sm font-semibold mb-2">
                           Name
                         </label>
                         <input
+                          name="name"
                           type="text"
                           required
                           className="w-full px-4 py-3 bg-background/10 border border-background/30 text-background placeholder-background/60 focus:outline-none focus:border-primary"
@@ -446,6 +461,7 @@ export default function InHomeTrialPage() {
                           Phone
                         </label>
                         <input
+                          name="phone"
                           type="tel"
                           required
                           className="w-full px-4 py-3 bg-background/10 border border-background/30 text-background placeholder-background/60 focus:outline-none focus:border-primary"
@@ -460,6 +476,7 @@ export default function InHomeTrialPage() {
                           Email
                         </label>
                         <input
+                          name="email"
                           type="email"
                           required
                           className="w-full px-4 py-3 bg-background/10 border border-background/30 text-background placeholder-background/60 focus:outline-none focus:border-primary"
@@ -471,6 +488,7 @@ export default function InHomeTrialPage() {
                           City
                         </label>
                         <input
+                          name="city"
                           type="text"
                           required
                           className="w-full px-4 py-3 bg-background/10 border border-background/30 text-background placeholder-background/60 focus:outline-none focus:border-primary"
@@ -484,18 +502,19 @@ export default function InHomeTrialPage() {
                         Preferred Trial Date
                       </label>
                       <input
+                        name="date"
                         type="date"
                         required
                         className="w-full px-4 py-3 bg-background/10 border border-background/30 text-background placeholder-background/60 focus:outline-none focus:border-primary"
                       />
                     </div>
 
-
                     <div>
                       <label className="block text-sm font-semibold mb-2">
                         Additional Notes
                       </label>
                       <textarea
+                        name="notes"
                         className="w-full px-4 py-3 bg-background/10 border border-background/30 text-background placeholder-background/60 focus:outline-none focus:border-primary h-24 resize-none"
                         placeholder="Tell us about your space, style preferences, or any questions..."
                       ></textarea>
@@ -503,9 +522,12 @@ export default function InHomeTrialPage() {
 
                     <button
                       type="submit"
-                      className="w-full px-6 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg transition-colors duration-300"
+                      disabled={loading}
+                      className={`w-full px-6 py-4 bg-primary text-primary-foreground font-semibold text-lg transition-colors duration-300
+    ${loading ? "opacity-70 cursor-not-allowed" : "hover:bg-primary/90"}
+  `}
                     >
-                      Schedule Trial
+                      {loading ? "Scheduling..." : "Schedule Trial"}
                     </button>
                   </form>
                 </>

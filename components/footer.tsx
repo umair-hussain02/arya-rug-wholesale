@@ -60,7 +60,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:contact@aryarugs.com" className="text-background/70 hover:text-background transition-colors">
+                <a href="mailto:aryarug1@gmail.com" className="text-background/70 hover:text-background transition-colors">
                   Email Support
                 </a>
               </li>

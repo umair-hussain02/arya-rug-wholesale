@@ -1,24 +1,56 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useParams, useRouter } from "next/navigation"
-import { useState } from "react"
-import { motion } from "framer-motion"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import { collectionsData } from "@/lib/collections-data"
-import { X, ChevronLeft, ChevronRight } from "lucide-react"
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import { collectionsData } from "@/lib/collections-data";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function CollectionDetailPage() {
-  const params = useParams()
-  const router = useRouter()
-  const slug = params.slug as string
+  const [loading, setLoading] = useState(false);
+  const params = useParams();
+  const router = useRouter();
+  const slug = params.slug as string;
 
-  const collection = collectionsData.find((c) => c.slug === slug)
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [lightboxIndex, setLightboxIndex] = useState(0)
-  const [catalogModalOpen, setCatalogModalOpen] = useState(false)
-  const [formSubmitted, setFormSubmitted] = useState(false)
+  const collection = collectionsData.find((c) => c.slug === slug);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [catalogModalOpen, setCatalogModalOpen] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget);
+
+    const payload = {
+      formType: "catalog",
+      collectionTitle: slug,
+      name: formData.get("name"),
+      company: formData.get("company"),
+      email: formData.get("email"),
+      country: formData.get("country"),
+      purpose: formData.get("purpose"),
+    };
+
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      setFormSubmitted(true);
+    } catch (err) {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   if (!collection) {
     return (
@@ -26,25 +58,36 @@ export default function CollectionDetailPage() {
         <Header />
         <main className="w-full min-h-screen bg-background flex items-center justify-center">
           <div className="text-center space-y-6">
-            <h1 className="font-serif text-4xl font-bold text-foreground">Collection Not Found</h1>
-            <p className="text-muted-foreground">The collection you're looking for doesn't exist.</p>
-            <Link href="/collections" className="inline-block text-primary hover:text-primary/80 font-semibold">
+            <h1 className="font-serif text-4xl font-bold text-foreground">
+              Collection Not Found
+            </h1>
+            <p className="text-muted-foreground">
+              The collection you're looking for doesn't exist.
+            </p>
+            <Link
+              href="/collections"
+              className="inline-block text-primary hover:text-primary/80 font-semibold"
+            >
               Back to Collections
             </Link>
           </div>
         </main>
         <Footer />
       </div>
-    )
+    );
   }
 
   const handleLightboxNext = () => {
-    setLightboxIndex((prev) => (prev + 1) % collection.galleryImages.length)
-  }
+    setLightboxIndex((prev) => (prev + 1) % collection.galleryImages.length);
+  };
 
   const handleLightboxPrev = () => {
-    setLightboxIndex((prev) => (prev - 1 + collection.galleryImages.length) % collection.galleryImages.length)
-  }
+    setLightboxIndex(
+      (prev) =>
+        (prev - 1 + collection.galleryImages.length) %
+        collection.galleryImages.length,
+    );
+  };
 
   return (
     <div className="w-full">
@@ -81,7 +124,9 @@ export default function CollectionDetailPage() {
               <h1 className="font-serif text-5xl md:text-7xl font-bold text-background leading-tight">
                 {collection.title}
               </h1>
-              <p className="text-background/90 text-lg md:text-xl max-w-xl">{collection.description}</p>
+              <p className="text-background/90 text-lg md:text-xl max-w-xl">
+                {collection.description}
+              </p>
             </motion.div>
           </div>
         </section>
@@ -96,8 +141,12 @@ export default function CollectionDetailPage() {
               viewport={{ once: true }}
               className="max-w-3xl space-y-6"
             >
-              <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground">The Story</h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">{collection.story}</p>
+              <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
+                The Story
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                {collection.story}
+              </p>
             </motion.div>
           </div>
         </section>
@@ -139,8 +188,8 @@ export default function CollectionDetailPage() {
                     visible: { opacity: 1, y: 0 },
                   }}
                   onClick={() => {
-                    setLightboxIndex(idx)
-                    setLightboxOpen(true)
+                    setLightboxIndex(idx);
+                    setLightboxOpen(true);
                   }}
                   className="relative group overflow-hidden bg-muted aspect-[3/4] cursor-pointer"
                 >
@@ -157,14 +206,20 @@ export default function CollectionDetailPage() {
                       whileHover={{ opacity: 1, scale: 1 }}
                       className="w-12 h-12 bg-background/80 rounded-full flex items-center justify-center"
                     >
-                      <svg className="w-6 h-6 text-foreground" fill="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className="w-6 h-6 text-foreground"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path d="M8 5v14l11-7z" />
                       </svg>
                     </motion.div>
                   </div>
                   {image.caption && (
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-foreground to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <p className="text-background text-sm font-semibold">{image.caption}</p>
+                      <p className="text-background text-sm font-semibold">
+                        {image.caption}
+                      </p>
                     </div>
                   )}
                 </motion.button>
@@ -185,7 +240,9 @@ export default function CollectionDetailPage() {
                 viewport={{ once: true }}
                 className="space-y-4"
               >
-                <h3 className="font-serif text-2xl font-bold text-foreground">Materials</h3>
+                <h3 className="font-serif text-2xl font-bold text-foreground">
+                  Materials
+                </h3>
                 <div className="space-y-2">
                   {collection.materials.map((material, idx) => (
                     <p key={idx} className="text-muted-foreground font-sans">
@@ -203,7 +260,9 @@ export default function CollectionDetailPage() {
                 viewport={{ once: true }}
                 className="space-y-4"
               >
-                <h3 className="font-serif text-2xl font-bold text-foreground">Weave Types</h3>
+                <h3 className="font-serif text-2xl font-bold text-foreground">
+                  Weave Types
+                </h3>
                 <div className="space-y-2">
                   {collection.weaveTypes.map((weave, idx) => (
                     <p key={idx} className="text-muted-foreground font-sans">
@@ -221,7 +280,9 @@ export default function CollectionDetailPage() {
                 viewport={{ once: true }}
                 className="space-y-4"
               >
-                <h3 className="font-serif text-2xl font-bold text-foreground">Available Sizes</h3>
+                <h3 className="font-serif text-2xl font-bold text-foreground">
+                  Available Sizes
+                </h3>
                 <div className="space-y-2">
                   {collection.availableSizes.map((size, idx) => (
                     <p key={idx} className="text-muted-foreground font-sans">
@@ -239,7 +300,9 @@ export default function CollectionDetailPage() {
                 viewport={{ once: true }}
                 className="space-y-4"
               >
-                <h3 className="font-serif text-2xl font-bold text-foreground">Ideal For</h3>
+                <h3 className="font-serif text-2xl font-bold text-foreground">
+                  Ideal For
+                </h3>
                 <div className="space-y-2">
                   {collection.idealFor.map((ideal, idx) => (
                     <p key={idx} className="text-muted-foreground font-sans">
@@ -257,7 +320,9 @@ export default function CollectionDetailPage() {
                 viewport={{ once: true }}
                 className="space-y-4"
               >
-                <h3 className="font-serif text-2xl font-bold text-foreground">Customization</h3>
+                <h3 className="font-serif text-2xl font-bold text-foreground">
+                  Customization
+                </h3>
                 <div className="space-y-2">
                   {collection.customizationOptions.map((option, idx) => (
                     <p key={idx} className="text-muted-foreground font-sans">
@@ -281,10 +346,12 @@ export default function CollectionDetailPage() {
               className="space-y-6"
             >
               <div className="w-16 h-px bg-primary mx-auto"></div>
-              <h2 className="font-serif text-4xl md:text-5xl font-bold">Request Full Catalog</h2>
+              <h2 className="font-serif text-4xl md:text-5xl font-bold">
+                Request Full Catalog
+              </h2>
               <p className="text-background/80 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-                Interested in this collection? Request our full catalog with detailed specifications, pricing, and bulk
-                options.
+                Interested in this collection? Request our full catalog with
+                detailed specifications, pricing, and bulk options.
               </p>
             </motion.div>
 
@@ -313,8 +380,8 @@ export default function CollectionDetailPage() {
         >
           <button
             onClick={(e) => {
-              e.stopPropagation()
-              setLightboxOpen(false)
+              e.stopPropagation();
+              setLightboxOpen(false);
             }}
             className="absolute top-4 right-4 z-50 text-background hover:text-background/80 transition-colors"
           >
@@ -323,8 +390,8 @@ export default function CollectionDetailPage() {
 
           <button
             onClick={(e) => {
-              e.stopPropagation()
-              handleLightboxPrev()
+              e.stopPropagation();
+              handleLightboxPrev();
             }}
             className="absolute left-4 text-background hover:text-background/80 transition-colors"
           >
@@ -340,7 +407,10 @@ export default function CollectionDetailPage() {
             className="max-w-4xl w-full aspect-[3/4] flex flex-col items-center justify-center"
           >
             <img
-              src={collection.galleryImages[lightboxIndex].src || "/placeholder.svg"}
+              src={
+                collection.galleryImages[lightboxIndex].src ||
+                "/placeholder.svg"
+              }
               alt={collection.galleryImages[lightboxIndex].alt}
               className="w-full h-full object-contain"
             />
@@ -353,8 +423,8 @@ export default function CollectionDetailPage() {
 
           <button
             onClick={(e) => {
-              e.stopPropagation()
-              handleLightboxNext()
+              e.stopPropagation();
+              handleLightboxNext();
             }}
             className="absolute right-4 text-background hover:text-background/80 transition-colors"
           >
@@ -384,9 +454,17 @@ export default function CollectionDetailPage() {
             className="bg-background rounded-sm max-w-md w-full p-8 md:p-10"
           >
             {formSubmitted ? (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center space-y-4">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center space-y-4"
+              >
                 <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
-                  <svg className="w-8 h-8 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                  <svg
+                    className="w-8 h-8 text-primary"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
                     <path
                       fillRule="evenodd"
                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -394,14 +472,17 @@ export default function CollectionDetailPage() {
                     />
                   </svg>
                 </div>
-                <h3 className="font-serif text-2xl font-bold text-foreground">Thank You</h3>
+                <h3 className="font-serif text-2xl font-bold text-foreground">
+                  Thank You
+                </h3>
                 <p className="text-muted-foreground">
-                  We've received your request. Our team will contact you shortly with catalog details.
+                  We've received your request. Our team will contact you shortly
+                  with catalog details.
                 </p>
                 <button
                   onClick={() => {
-                    setCatalogModalOpen(false)
-                    setFormSubmitted(false)
+                    setCatalogModalOpen(false);
+                    setFormSubmitted(false);
                   }}
                   className="w-full px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-colors"
                 >
@@ -412,10 +493,7 @@ export default function CollectionDetailPage() {
               <motion.form
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                onSubmit={(e) => {
-                  e.preventDefault()
-                  setFormSubmitted(true)
-                }}
+                onSubmit={handleSubmit}
                 className="space-y-6"
               >
                 <div>
@@ -426,14 +504,21 @@ export default function CollectionDetailPage() {
                   >
                     <X className="w-6 h-6" />
                   </button>
-                  <h3 className="font-serif text-2xl font-bold text-foreground mb-2">Request Catalog</h3>
-                  <p className="text-muted-foreground text-sm">{collection.title}</p>
+                  <h3 className="font-serif text-2xl font-bold text-foreground mb-2">
+                    Request Catalog
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    {collection.title}
+                  </p>
                 </div>
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">Name</label>
+                    <label className="block text-sm font-semibold text-foreground mb-2">
+                      Name
+                    </label>
                     <input
+                      name="name"
                       type="text"
                       required
                       className="w-full px-4 py-2 border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
@@ -442,8 +527,11 @@ export default function CollectionDetailPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">Company</label>
+                    <label className="block text-sm font-semibold text-foreground mb-2">
+                      Company
+                    </label>
                     <input
+                      name="company"
                       type="text"
                       required
                       className="w-full px-4 py-2 border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
@@ -452,8 +540,11 @@ export default function CollectionDetailPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">Email</label>
+                    <label className="block text-sm font-semibold text-foreground mb-2">
+                      Email
+                    </label>
                     <input
+                      name="email"
                       type="email"
                       required
                       className="w-full px-4 py-2 border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
@@ -462,8 +553,11 @@ export default function CollectionDetailPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">Country</label>
+                    <label className="block text-sm font-semibold text-foreground mb-2">
+                      Country
+                    </label>
                     <input
+                      name="country"
                       type="text"
                       required
                       className="w-full px-4 py-2 border border-border bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
@@ -472,8 +566,11 @@ export default function CollectionDetailPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">Purpose</label>
+                    <label className="block text-sm font-semibold text-foreground mb-2">
+                      Purpose
+                    </label>
                     <select
+                      name="purpose"
                       required
                       className="w-full px-4 py-2 border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                     >
@@ -488,9 +585,12 @@ export default function CollectionDetailPage() {
 
                 <button
                   type="submit"
-                  className="w-full px-4 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-colors"
+                  disabled={loading}
+                  className={`w-full px-4 py-3 bg-primary text-primary-foreground font-semibold transition-colors
+    ${loading ? "opacity-70 cursor-not-allowed" : "hover:bg-primary/90"}
+  `}
                 >
-                  Request Catalog
+                  {loading ? "Requesting..." : "Request Catalog"}
                 </button>
               </motion.form>
             )}
@@ -500,5 +600,5 @@ export default function CollectionDetailPage() {
 
       <Footer />
     </div>
-  )
+  );
 }

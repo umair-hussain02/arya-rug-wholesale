@@ -1,12 +1,24 @@
 import nodemailer from "nodemailer"
 
+type FormType = "contact" | "trial" | "catalog"
+
 interface ContactFormData {
+  formType: FormType
+
   name: string
   email: string
-  phone: string
-  company: string
-  subject: string
-  message: string
+
+  phone?: string
+  company?: string
+  subject?: string
+  message?: string
+
+  // Trial
+  city?: string
+  date?: string
+
+  // Catalog
+  collectionTitle?: string
 }
 
 let transporter: nodemailer.Transporter | null = null
@@ -18,9 +30,7 @@ function getTransporter() {
   const gmailPassword = process.env.GMAIL_PASSWORD
 
   if (!gmailUser || !gmailPassword) {
-    console.warn(
-      "Gmail credentials not configured. Email sending will not work. Set GMAIL_USER and GMAIL_PASSWORD environment variables.",
-    )
+    console.warn("Email not configured")
     return null
   }
 
@@ -35,64 +45,140 @@ function getTransporter() {
   return transporter
 }
 
+function emailLayout(content: string) {
+  return `
+  <div style="font-family:Arial,Helvetica,sans-serif;background:#f8f8f8;padding:40px">
+    <div style="max-width:620px;margin:auto;background:#ffffff;border-radius:10px;overflow:hidden">
+      
+      <div style="padding:24px;text-align:center;border-bottom:1px solid #eee">
+        <img src="cid:logo" alt="Brand Logo" style="max-width:160px;margin-bottom:10px" />
+      </div>
+
+      <div style="padding:32px;color:#333;line-height:1.6">
+        ${content}
+      </div>
+
+      <div style="padding:20px;background:#fafafa;text-align:center;font-size:12px;color:#777">
+        © ${new Date().getFullYear()} Rug Collection · All rights reserved
+      </div>
+    </div>
+  </div>
+  `
+}
+
 export async function POST(request: Request) {
   try {
     const data: ContactFormData = await request.json()
 
-    // Validate required fields
-    if (!data.name || !data.email || !data.subject || !data.message) {
+    if (!data.formType || !data.name || !data.email) {
+      console.log("Invalid form submission:", data)
       return Response.json({ error: "Missing required fields" }, { status: 400 })
+    }
+
+    if (data.formType === "contact" && (!data.subject || !data.message)) {
+      console.log("Invalid contact form submission:", data)
+      return Response.json({ error: "Contact form incomplete" }, { status: 400 })
+    }
+
+    if (data.formType === "trial" && (!data.phone || !data.city || !data.date)) {
+      console.log("Invalid trial form submission:", data)
+      return Response.json({ error: "Trial form incomplete" }, { status: 400 })
+    }
+
+    if (data.formType === "catalog" && !data.collectionTitle) {
+      console.log("Invalid catalog form submission:", data)
+      return Response.json({ error: "Catalog request incomplete" }, { status: 400 })
     }
 
     const transporter = getTransporter()
 
     if (!transporter) {
-      // In development without email configured, still return success
-      console.log("Contact form submitted (email not configured):", data)
-      return Response.json({ success: true, message: "Message received. We will contact you soon." })
+      console.log("Form received (email disabled):", data)
+      return Response.json({ success: true })
     }
 
-    // Email to admin
-    const adminMailOptions = {
+    /* ---------------- ADMIN EMAIL ---------------- */
+
+    const adminContent = `
+      <h2 style="margin-bottom:16px">New ${data.formType.toUpperCase()} Submission</h2>
+
+      <p><strong>Name:</strong> ${data.name}</p>
+      <p><strong>Email:</strong> ${data.email}</p>
+      ${data.phone ? `<p><strong>Phone:</strong> ${data.phone}</p>` : ""}
+      ${data.company ? `<p><strong>Company:</strong> ${data.company}</p>` : ""}
+      ${data.city ? `<p><strong>City:</strong> ${data.city}</p>` : ""}
+      ${data.date ? `<p><strong>Preferred Date:</strong> ${data.date}</p>` : ""}
+      ${data.collectionTitle ? `<p><strong>Collection:</strong> ${data.collectionTitle}</p>` : ""}
+      ${data.subject ? `<p><strong>Subject:</strong> ${data.subject}</p>` : ""}
+
+      ${data.message ? `<hr /><p>${data.message.replace(/\n/g, "<br/>")}</p>` : ""}
+    `
+
+    /* ---------------- CUSTOMER EMAIL ---------------- */
+
+    let customerContent = ""
+
+    if (data.formType === "contact") {
+      customerContent = `
+        <h2>Thank You for Contacting Us</h2>
+        <p>Hi ${data.name},</p>
+        <p>We’ve received your message and our team will get back to you within 24 business hours.</p>
+      `
+    }
+
+    if (data.formType === "trial") {
+      customerContent = `
+        <h2>Your Trial Request is Received</h2>
+        <p>Hi ${data.name},</p>
+        <p>Thank you for scheduling an in-home trial. Our team will contact you shortly to confirm your preferred date.</p>
+      `
+    }
+
+    if (data.formType === "catalog") {
+      customerContent = `
+        <h2>Your Catalog Request</h2>
+        <p>Hi ${data.name},</p>
+        <p>Thank you for requesting our catalog for the <strong>${data.collectionTitle}</strong> collection.</p>
+        <p>Our team will reach out shortly with the catalog and additional details.</p>
+      `
+    }
+
+    const adminMail = {
       from: process.env.GMAIL_USER,
-      to: process.env.CONTACT_EMAIL_TO || process.env.GMAIL_USER,
-      subject: `New Contact Form Submission: ${data.subject}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${data.name}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
-        <p><strong>Company:</strong> ${data.company || "Not provided"}</p>
-        <p><strong>Subject:</strong> ${data.subject}</p>
-        <h3>Message:</h3>
-        <p>${data.message.replace(/\n/g, "<br />")}</p>
-      `,
+      to: process.env.ADMIN_EMAIL,
+      subject: `New ${data.formType.toUpperCase()} Form Submission`,
+      html: emailLayout(adminContent),
+      attachments: [
+        {
+          filename: "logo.png",
+          path: "./public/logov4.png",
+          cid: "logo",
+        },
+      ],
     }
 
-    // Email to customer
-    const customerMailOptions = {
+    const customerMail = {
       from: process.env.GMAIL_USER,
       to: data.email,
-      subject: "We received your message - Rug Catalog",
-      html: `
-        <h2>Thank You!</h2>
-        <p>Hi ${data.name},</p>
-        <p>We have received your message and will get back to you within 24 business hours.</p>
-        <p><strong>Your message details:</strong></p>
-        <p><strong>Subject:</strong> ${data.subject}</p>
-        <p><strong>Message:</strong></p>
-        <p>${data.message.replace(/\n/g, "<br />")}</p>
-        <hr />
-        <p>Best regards,<br />Rug Catalog Team</p>
-      `,
+      subject: "We’ve Received Your Request",
+      html: emailLayout(customerContent),
+      attachments: [
+        {
+          filename: "logo.png",
+          path: "./public/logov4.png",
+          cid: "logo",
+        },
+      ],
     }
 
-    // Send emails
-    await Promise.all([transporter.sendMail(adminMailOptions), transporter.sendMail(customerMailOptions)])
+    await Promise.all([
+      transporter.sendMail(adminMail),
+      transporter.sendMail(customerMail),
+    ])
 
-    return Response.json({ success: true, message: "Message sent successfully" })
+    return Response.json({ success: true })
   } catch (error) {
-    console.error("Contact form error:", error)
-    return Response.json({ error: "Failed to send message. Please try again later." }, { status: 500 })
+    console.error("Contact API Error:", error)
+    return Response.json({ error: "Failed to send message" }, { status: 500 })
   }
 }
