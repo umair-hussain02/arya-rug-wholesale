@@ -8,6 +8,7 @@ import { AnimatedTestimonialsCarousel } from "@/components/animated-testimonials
 import { CTAStrip } from "@/components/cta-strip"
 import CategoriesSection from "@/components/categories-section"
 import { HeroSection2 } from "@/components/hero-two"
+import HomeAbout from "@/components/home-about"
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <HeroSection2 />
         {/* <HeroCarousel /> */}
         <CategoriesSection />
+        <HomeAbout />
         {/* <FeaturedCarousel /> */}
         <EditorialGrid />
         <AnimatedPillarsSection />

@@ -3,18 +3,18 @@
 export function EditorialGrid() {
   const items = [
     {
-      title: "Moroccan Heritage",
-      image: "/moroccan-cream-rug.jpg",
+      title: "Kilim Classics",
+      image: "/collections/kilims.webp",
       size: "large",
     },
     {
       title: "Persian Mastery",
-      image: "/persian-garden-rug.jpg",
+      image: "/shag-rug.jpg",
       size: "medium",
     },
     {
-      title: "Modern Living",
-      image: "/modern-charcoal-rug.jpg",
+      title: "Modern Elegance",
+      image: "/inhometrial.jpg",
       size: "medium",
     },
   ]

@@ -10,36 +10,7 @@ import shagRug from "@/public/shag-rug.jpg";
 import { url } from "inspector";
 import Link from "next/link";
 
-const categories = [
-  {
-    name: "Persian & Oriental",
-    description: "Timeless elegance with intricate patterns",
-    image: persianRug,
-    count: "150+ designs",
-    url: "/collections/moroccan-dreams",
-  },
-  {
-    name: "Modern & Contemporary",
-    description: "Clean lines for modern spaces",
-    image: modernRug,
-    count: "120+ designs",
-    url: "/collections/persian-heritage",
-  },
-  {
-    name: "Kilim & Tribal",
-    description: "Authentic handwoven traditions",
-    image: kilimRug,
-    count: "80+ designs",
-    url: "/collections/modern-minimalist",
-  },
-  {
-    name: "Shag & Plush",
-    description: "Luxurious comfort underfoot",
-    image: shagRug,
-    count: "60+ designs",
-    url: "/collections/boho-fusion",
-  },
-];
+import { collectionsData } from "@/lib/collections-data";
 
 // Animation variants
 const cardVariants = {
@@ -76,52 +47,50 @@ const CategoriesSection = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-  {categories.map((category, index) => (
-    <Link
-      key={category.name}
-      href={category.url}
-      className="block"
+  {collectionsData.slice(0, 4).map((category, index) => (
+  <Link
+    key={category.title}
+    href={`/collections/${category.slug}`}
+    className="block"
+  >
+    <motion.div
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      className="group relative overflow-hidden rounded-lg cursor-pointer"
     >
-      <motion.div
-        custom={index}
-        variants={cardVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        className="group relative overflow-hidden rounded-lg cursor-pointer"
-      >
-        <div className="relative aspect-[3/4] overflow-hidden">
-          <Image
-            src={category.image}
-            alt={category.name}
-            fill
-            sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-110"
-            priority={index === 0}
-          />
+      <div className="relative aspect-[3/4] overflow-hidden">
+        <Image
+          src={category.heroImage}
+          alt={category.title}
+          fill
+          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          priority={index === 0}
+        />
+      </div>
+
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+
+      <div className="absolute bottom-0 left-0 right-0 p-6">
+        <h3 className="text-xl font-heading font-semibold text-background/70 mb-2">
+          {category.title}
+        </h3>
+        <p className="text-background/80 text-sm">
+          {category.description}
+        </p>
+
+        <div className="mt-4 flex items-center gap-2 text-background text-sm font-medium opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+          <span>Explore Collection</span>
+          <span className="text-lg">→</span>
         </div>
+      </div>
+    </motion.div>
+  </Link>
+))}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-
-        <div className="absolute bottom-0 left-0 right-0 p-6">
-          <p className="text-background/70 text-xs uppercase tracking-wider mb-2">
-            {category.count}
-          </p>
-          <h3 className="text-xl font-heading font-semibold text-background/70 mb-2">
-            {category.name}
-          </h3>
-          <p className="text-background/80 text-sm">
-            {category.description}
-          </p>
-
-          <div className="mt-4 flex items-center gap-2 text-background text-sm font-medium opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-            <span>Explore Collection</span>
-            <span className="text-lg">→</span>
-          </div>
-        </div>
-      </motion.div>
-    </Link>
-  ))}
 </div>
       </div>
     </section>

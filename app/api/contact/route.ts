@@ -59,7 +59,7 @@ function emailLayout(content: string) {
       </div>
 
       <div style="padding:20px;background:#fafafa;text-align:center;font-size:12px;color:#777">
-        © ${new Date().getFullYear()} Rug Collection · All rights reserved
+        © ${new Date().getFullYear()} Arya Rug Collection · All rights reserved
       </div>
     </div>
   </div>

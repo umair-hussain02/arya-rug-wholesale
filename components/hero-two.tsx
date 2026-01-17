@@ -17,7 +17,7 @@ export function HeroSection2() {
       />
 
       {/* Black overlay – 80% */}
-      <div className="absolute inset-0 bg-black/80 z-[1]" />
+      <div className="absolute inset-0 bg-black/60 z-[1]" />
 
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 opacity-5 z-[2] pointer-events-none">
