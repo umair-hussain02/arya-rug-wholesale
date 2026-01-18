@@ -283,7 +283,8 @@ export default function CollectionDetailPage() {
                 <h3 className="font-serif text-2xl font-bold text-foreground">
                   Available Sizes
                 </h3>
-                <div className="space-y-2">
+
+                <div className="grid grid-cols-2 gap-x-6 gap-y-2">
                   {collection.availableSizes.map((size, idx) => (
                     <p key={idx} className="text-muted-foreground font-sans">
                       {size}

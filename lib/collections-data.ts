@@ -36,7 +36,7 @@ export const collectionsData: Collection[] = [
     })),
     materials: ["100% Wool"],
     weaveTypes: ["Hand-knotted"],
-    availableSizes: ["6' x 9'", "8' x 10'", "9' x 12'", "10' x 14'"],
+    availableSizes: ["3' x 4'", "4' x 6'", "5' x 7'", "5' x 8'", "6' x 9'", "7' x 9'", "8' x 10'", "9' x 12'", "10' x 13'"],
     idealFor: ["Luxury Homes", "Palaces", "Hotels", "Statement Interiors"],
     customizationOptions: [
       "Custom color palettes",
@@ -61,7 +61,7 @@ export const collectionsData: Collection[] = [
     })),
     materials: ["100% Wool", "Wool with Silk Highlights"],
     weaveTypes: ["Hand-knotted"],
-    availableSizes: ["6' x 9'", "8' x 10'", "9' x 12'", "10' x 14'"],
+    availableSizes: ["3' x 5'", "4' x 6'", "5' x 7'", "5' x 8'", "6' x 9'", "7' x 10'", "8' x 10'", "9' x 12'", "10' x 14'"],
     idealFor: ["Luxury Residences", "Collectors", "Boutique Hotels"],
     customizationOptions: [
       "Custom designs",
@@ -80,13 +80,13 @@ export const collectionsData: Collection[] = [
     story:
       "The Turkish Oushak Collection is known for its large floral patterns, subdued elegance, and timeless appeal. Originally woven for royal courts, these rugs bring warmth, balance, and sophistication to modern and classic interiors alike.",
     heroImage: "/collections/turkishoushak.webp",
-    galleryImages: Array.from({ length: 7 }, (_, i) => ({
+    galleryImages: Array.from({ length: 12 }, (_, i) => ({
       src: `/collections/turkishoushak${i + 1}.webp`,
       alt: `Turkish Oushak rug design ${i + 1}`,
     })),
     materials: ["100% Wool"],
     weaveTypes: ["Hand-knotted"],
-    availableSizes: ["8' x 10'", "9' x 12'", "10' x 14'"],
+    availableSizes: ["2' x 3'", "3' x 5'", "4' x 6'", "5' x 7'", "5' x 8'", "6' x 9'", "8' x 10'", "9' x 12'", "10' x 13'"],
     idealFor: ["Luxury Villas", "Interior Designers", "Elegant Living Spaces"],
     customizationOptions: [
       "Muted color customization",
@@ -111,7 +111,7 @@ export const collectionsData: Collection[] = [
     })),
     materials: ["Wool", "Wool-Viscose Blend"],
     weaveTypes: ["Handwoven", "Hand-knotted"],
-    availableSizes: ["5' x 7'", "6' x 9'", "8' x 10'", "9' x 12'"],
+    availableSizes: ["2' x 4'", "3' x 5'", "4' x 6'", "5' x 7'", "5' x 8'", "6' x 9'", "8' x 12'"],
     idealFor: ["Modern Homes", "Offices", "Apartments", "Creative Studios"],
     customizationOptions: [
       "Abstract pattern tweaks",
@@ -136,7 +136,7 @@ export const collectionsData: Collection[] = [
     })),
     materials: ["100% Silk", "Silk-Wool Blend"],
     weaveTypes: ["Hand-knotted"],
-    availableSizes: ["4' x 6'", "6' x 9'", "8' x 10'"],
+    availableSizes: ["2' x 3'", "2' x 4'", "3' x 5'", "4' x 6'", "5' x 7'", "6' x 8'"],
     idealFor: ["Luxury Interiors", "Penthouse Suites", "Exclusive Displays"],
     customizationOptions: [
       "High knot density",
@@ -161,7 +161,7 @@ export const collectionsData: Collection[] = [
     })),
     materials: ["100% Wool"],
     weaveTypes: ["Flatweave (Kilim)"],
-    availableSizes: ["5' x 7'", "6' x 8'", "7' x 10'"],
+    availableSizes: ["5' x 6'", "6' x 8'", "8' x 11'"],
     idealFor: ["Bohemian Homes", "Creative Spaces", "Retail Displays"],
     customizationOptions: [
       "Custom motifs",
@@ -178,14 +178,14 @@ export const collectionsData: Collection[] = [
     "Elegant long-format rugs designed to enhance corridors, hallways, and transitional spaces.",
   story:
     "The Runner Collection is crafted to bring beauty and balance to narrow spaces. Featuring refined patterns, durable construction, and flowing designs, these runners transform hallways and staircases into sophisticated design statements.",
-  heroImage: "/collections/runner.webp",
+  heroImage: "/collections/runner1.webp",
   galleryImages: Array.from({ length: 12 }, (_, i) => ({
     src: `/collections/runner${i + 2}.webp`,
     alt: `Runner rug design ${i + 2}`,
   })),
   materials: ["100% Wool", "Wool-Silk Blend"],
   weaveTypes: ["Hand-knotted", "Handwoven"],
-  availableSizes: ["2'6\" x 8'", "2'6\" x 10'", "3' x 12'", "3' x 14'"],
+  availableSizes: ["2' x 6'", "2' x 8'", "2' x 10'", "2' x 12'", "2' x 13'", "2' 6\" x 8'", "2' 6\" x 10'", "2' 6\" x 12'", "3' x 8'", "3' x 10'", "3' x 12'"],
   idealFor: ["Hallways", "Corridors", "Staircases", "Entryways"],
   customizationOptions: [
     "Custom lengths",
@@ -209,7 +209,7 @@ export const collectionsData: Collection[] = [
   })),
   materials: ["Wool", "Cotton-Wool Blend", "Silk Accents"],
   weaveTypes: ["Handwoven"],
-  availableSizes: ["1' x 4'", "1' x 5'", "1' x 6'", "1' x 7'"],
+  availableSizes: ["16 inch x 55 inch", "16 inch x 74 inch"],
   idealFor: ["Dining Tables", "Console Tables", "Decor Styling", "Gift Collections"],
   customizationOptions: [
     "Custom lengths",
